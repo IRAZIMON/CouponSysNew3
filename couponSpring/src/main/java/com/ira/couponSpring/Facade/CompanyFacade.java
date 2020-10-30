@@ -38,36 +38,47 @@ public class CompanyFacade extends ClientFacade {
 
 	}
 
-
 	public void addCoupon(Coupon coupon) throws Exception {
 		Company comp = companyReposetory.getOne(company_ID);
-		if(coupon!= null) {
-		for (Coupon c : comp.getCoupons()) {
-			if (c.getTitle().equals(coupon.getTitle())) {
-				throw new Exception("Coupon with such title already exists in this company");
+		if (coupon != null) {
+			for (Coupon c : comp.getCoupons()) {
+				if (c.getTitle().equals(coupon.getTitle())) {
+					throw new Exception("Coupon with such title already exists in this company");
 
+				}
 			}
-		}
-		
+
 		}
 		couponReposetory.saveAndFlush(coupon);
 		comp.getCoupons().add(coupon);
 		companyReposetory.saveAndFlush(comp);
-		
-	}	
 
+	}
 
+//	public void updateCoupon(Coupon coupon) throws NotAllowedException {
+//		boolean isExist = false;
+//		List<Coupon> coupons = couponReposetory.findAll();
+//		for (Coupon coupon2 : coupons) {
+//			if (coupon.getId() == coupon2.getId() && coupon.getCompanyId() == coupon2.getCompanyId()) {
+//				this.couponReposetory.saveAndFlush(coupon);
+//				isExist = true;
+//				break;
+//			}
+//		}
+//		if (!isExist) {
+//			throw new NotAllowedException("you can't update this coupon");
+//		}
+//
+//	}
 	public void updateCoupon(Coupon coupon) throws NotAllowedException {
-		boolean isExist = false;
+
 		List<Coupon> coupons = couponReposetory.findAll();
 		for (Coupon coupon2 : coupons) {
 			if (coupon.getId() == coupon2.getId() && coupon.getCompanyId() == coupon2.getCompanyId()) {
 				this.couponReposetory.saveAndFlush(coupon);
-				isExist = true;
-				break;
+
 			}
-		}
-		if (!isExist) {
+
 			throw new NotAllowedException("you can't update this coupon");
 		}
 

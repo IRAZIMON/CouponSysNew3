@@ -6,13 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.ira.couponSpring.Exceptions.TokenNotExistException;
 import com.ira.couponSpring.Facade.ClientFacade;
-
 import lombok.Data;
 
 

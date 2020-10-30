@@ -46,9 +46,7 @@ public class AdminController extends ClientControler{
 	@Autowired
 	private AdminFacade adminFacade;
 
-	@Autowired
-	private CouponReposetory c;
-
+	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
 		System.out.println("start admin controller");
