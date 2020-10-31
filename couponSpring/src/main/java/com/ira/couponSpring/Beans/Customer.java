@@ -92,4 +92,12 @@ public class Customer {
 				+ ", password=" + password + ", coupons=" + coupons + "]";
 	}
 
+	
+		
+	
+	public Customer get() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

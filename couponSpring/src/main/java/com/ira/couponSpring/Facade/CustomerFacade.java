@@ -12,18 +12,24 @@ import org.springframework.stereotype.Service;
 import com.ira.couponSpring.Beans.CategoryOfCoupon;
 import com.ira.couponSpring.Beans.Coupon;
 import com.ira.couponSpring.Beans.Customer;
+import com.ira.couponSpring.Exceptions.NotExistsException;
 import com.ira.couponSpring.Exceptions.NotFoundException;
 import com.ira.couponSpring.Exceptions.PurchaseCouponException;
 import lombok.Data;
 
 @Scope("prototype")
-@Data
+
 @Service
 public class CustomerFacade extends ClientFacade {
 
 	private int customer_ID;
 
+	public int getCustomer_ID() {
+		return customer_ID;
+	}
+
 	public CustomerFacade() {
+
 		super();
 	}
 
@@ -56,7 +62,7 @@ public class CustomerFacade extends ClientFacade {
 
 		boolean isExpired = date1.after(coupon.getEndDate());
 		if (isExpired) {
-			throw new PurchaseCouponException("you cannot purchase expired coupon");
+			throw new PurchaseCouponException("You cannot purchase expired coupon");
 		}
 		int amount = coupon.getAmount();
 		coupon.setAmount(amount - 1);
@@ -66,9 +72,16 @@ public class CustomerFacade extends ClientFacade {
 
 	}
 
-	public List<Coupon> getAllCouponsPurchaseCustomer() {
+	public List<Coupon> getAllCouponsPurchaseCustomer() throws NotFoundException {
 
-		return this.customerReposetory.getOne(this.customer_ID).getCoupons();
+		Customer customer = customerReposetory.findById(customer_ID);
+		if (customer != null) {
+			List<Coupon> coupons = customer.getCoupons();
+				return coupons;
+			} else {
+				throw new NotFoundException("This customer not exists");
+			}
+		
 
 	}
 
@@ -83,7 +96,7 @@ public class CustomerFacade extends ClientFacade {
 		}
 		if (couponNewList.isEmpty()) {
 
-			throw new NotFoundException("No coupons with this category");
+			throw new NotFoundException("No coupons of this category");
 		}
 		return couponNewList;
 	}
@@ -105,8 +118,10 @@ public class CustomerFacade extends ClientFacade {
 
 	}
 
-	public Customer getCustomerDetails(int customer_id) {
-		Customer tmpCustomer = customerReposetory.getOne(customer_id);
+	public Customer getCustomerDetails() {
+		Customer tmpCustomer = customerReposetory.getOne(this.customer_ID);
+		tmpCustomer.setCoupons(couponReposetory.findAll());
 		return tmpCustomer;
 	}
+
 }
