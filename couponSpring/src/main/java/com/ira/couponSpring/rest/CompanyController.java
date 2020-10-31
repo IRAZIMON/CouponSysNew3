@@ -31,6 +31,7 @@ import com.ira.couponSpring.Facade.CompanyFacade;
 import com.ira.couponSpring.Security.Clientype;
 import com.ira.couponSpring.Security.LoginManager;
 import com.ira.couponSpring.Security.TokenManager;
+
 ////@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RestController
 @RequestMapping("company")
@@ -42,7 +43,8 @@ public class CompanyController {
 	@Autowired
 	private TokenManager tokenManager;
 
-	
+	@Autowired
+	private CompanyFacade companyFacade;
 
 	@PostMapping("login")
 	public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) throws Exception {
@@ -66,8 +68,8 @@ public class CompanyController {
 			@RequestHeader(name = "Authorization", required = false) String token) throws Exception {
 		try {
 			tokenManager.isTokenExist(token);
-		   ((CompanyFacade) tokenManager.getClientFacade(token)).addCoupon(coupon);
-            return new ResponseEntity<Coupon>(HttpStatus.CREATED);
+			((CompanyFacade) tokenManager.getClientFacade(token)).addCoupon(coupon);
+			return new ResponseEntity<Coupon>(HttpStatus.CREATED);
 		}
 
 		catch (TokenNotExistException e) {
@@ -81,7 +83,7 @@ public class CompanyController {
 			throws AlreadyExistException, NotAllowedException {
 		try {
 			tokenManager.isTokenExist(token);
-			 ((CompanyFacade) tokenManager.getClientFacade(token)).updateCoupon(coupon);
+			((CompanyFacade) tokenManager.getClientFacade(token)).updateCoupon(coupon);
 			return new ResponseEntity<Coupon>(HttpStatus.OK);
 		}
 
@@ -97,9 +99,8 @@ public class CompanyController {
 		try {
 			tokenManager.isTokenExist(token);
 			((CompanyFacade) tokenManager.getClientFacade(token)).deleteCoupon(coupon_id);
-		return new ResponseEntity<Coupon>(HttpStatus.OK);
-		}
-		catch (TokenNotExistException e) {
+			return new ResponseEntity<Coupon>(HttpStatus.OK);
+		} catch (TokenNotExistException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		}
 	}
@@ -107,32 +108,38 @@ public class CompanyController {
 	@GetMapping("get-all-coupons")
 	public ResponseEntity<?> getAllCoupons(@RequestHeader(name = "Authorization", required = false) String token)
 			throws AlreadyExistException, NotAllowedException, NotExistsException {
-		return new ResponseEntity<List<Coupon>>(((CompanyFacade) tokenManager.getClientFacade(token)).getCompanyCoupons(), HttpStatus.OK);
-		
+		return new ResponseEntity<List<Coupon>>(
+				((CompanyFacade) tokenManager.getClientFacade(token)).getCompanyCoupons(), HttpStatus.OK);
+
 	}
 
 	@GetMapping("get-All-Coupons-ByCategory/{category}")
 	public ResponseEntity<?> getAllCouponsByCategory(@PathVariable(name = "category") CategoryOfCoupon category,
 			@RequestHeader(name = "Authorization", required = false) String token)
 			throws AlreadyExistException, NotAllowedException, NotExistsException, NotFoundException {
-            return new ResponseEntity<List<Coupon>>(((CompanyFacade) tokenManager.getClientFacade(token)).getCompanyCouponsByCategory(category), HttpStatus.OK);
+		return new ResponseEntity<List<Coupon>>(
+				((CompanyFacade) tokenManager.getClientFacade(token)).getCompanyCouponsByCategory(category),
+				HttpStatus.OK);
 
 	}
-
 
 	@GetMapping("get-All-Coupons-ByMaxPrice/{maxPrice}")
-	public ResponseEntity<?> getAllCouponsByMaxPrice(@PathVariable(name = "maxPrice") double maxPrice,
+	public ResponseEntity<?> getAllCouponsByMaxPrice(@PathVariable(name = "maxPrice") int maxPrice,
 			@RequestHeader(name = "Authorization", required = false) String token)
 			throws AlreadyExistException, NotAllowedException, NotExistsException, NotFoundException {
-		  return new ResponseEntity<List<Coupon>>(((CompanyFacade) tokenManager.getClientFacade(token)).getCompanyCouponsByMaxPrice(maxPrice), HttpStatus.OK);
-	
+		return new ResponseEntity<List<Coupon>>(
+				((CompanyFacade) tokenManager.getClientFacade(token)).getCompanyCouponsByMaxPrice(maxPrice),
+				HttpStatus.OK);
+
 	}
 
-	@GetMapping("getCompanyDetails/{int company_ID}")
-	public ResponseEntity<?> getCompanyDetails(@PathVariable(name = "company_ID") int company_ID,
-			@RequestHeader(name = "Authorization", required = false) String token)
+	@GetMapping("get-company-details")
+	public ResponseEntity<?> getCompanyDetails(@RequestHeader(name = "Authorization", required = false) String token)
 			throws AlreadyExistException, NotAllowedException, NotExistsException, NotFoundException, TokenNotExistException {
-		return new ResponseEntity<Company>(((CompanyFacade) tokenManager.getClientFacade(token)).getCompanyDetails(company_ID),HttpStatus.OK);
+		return new ResponseEntity<Company>(((CompanyFacade) tokenManager.getClientFacade(token)).getCompanyDetails(),HttpStatus.OK);
+		
 	}
+
+
 
 }

@@ -55,32 +55,15 @@ public class CompanyFacade extends ClientFacade {
 
 	}
 
-//	public void updateCoupon(Coupon coupon) throws NotAllowedException {
-//		boolean isExist = false;
-//		List<Coupon> coupons = couponReposetory.findAll();
-//		for (Coupon coupon2 : coupons) {
-//			if (coupon.getId() == coupon2.getId() && coupon.getCompanyId() == coupon2.getCompanyId()) {
-//				this.couponReposetory.saveAndFlush(coupon);
-//				isExist = true;
-//				break;
-//			}
-//		}
-//		if (!isExist) {
-//			throw new NotAllowedException("you can't update this coupon");
-//		}
-//
-//	}
 	public void updateCoupon(Coupon coupon) throws NotAllowedException {
-
-		List<Coupon> coupons = couponReposetory.findAll();
-		for (Coupon coupon2 : coupons) {
-			if (coupon.getId() == coupon2.getId() && coupon.getCompanyId() == coupon2.getCompanyId()) {
-				this.couponReposetory.saveAndFlush(coupon);
-
+		for (Coupon coupon2 : getCompanyCoupons()) {
+			if (coupon.getId() == coupon2.getId()) {
+				if (coupon.getCompanyId() != coupon2.getCompanyId()) {
+					throw new NotAllowedException("you can't update this coupon");
+				}
 			}
-
-			throw new NotAllowedException("you can't update this coupon");
 		}
+		this.couponReposetory.save(coupon);
 
 	}
 
@@ -113,28 +96,29 @@ public class CompanyFacade extends ClientFacade {
 
 	}
 
-	public List<Coupon> getCompanyCouponsByMaxPrice(double maxPrice) throws NotFoundException {
-
-		List<Coupon> coupons = getCompanyCoupons();
-
+	public List<Coupon> getCompanyCouponsByMaxPrice(int maxPrice) throws NotFoundException {
 		List<Coupon> couponsMaxPrice = new ArrayList<Coupon>();
-
-		for (Coupon coupon : coupons) {
-			if (coupon.getPrice() <= maxPrice) {
-				couponsMaxPrice.add(coupon);
-
-			} else {
-				throw new NotFoundException("No coupons with maximum price");
+		if (companyReposetory.existsById(this.company_ID)) {
+			List<Coupon> coupons = getCompanyCoupons();
+			for (Coupon coupon : coupons) {
+				if (coupon.getPrice() <= maxPrice) {
+					System.out.println("coupon " + coupon);
+					couponsMaxPrice.add(coupon);
+				}
 			}
+
+		} else {
+			throw new NotFoundException("No coupons with maximum price");
+
 		}
 		return couponsMaxPrice;
-
 	}
 
-	public Company getCompanyDetails(int company_ID) {
-		Company tmpCompany = companyReposetory.getOne(company_ID);
+	public Company getCompanyDetails() {
+		Company tmpCompany = companyReposetory.getOne(this.company_ID);
 		tmpCompany.setCoupons(couponReposetory.findByCompanyId(company_ID));
 		return tmpCompany;
+
 	}
 
 }
