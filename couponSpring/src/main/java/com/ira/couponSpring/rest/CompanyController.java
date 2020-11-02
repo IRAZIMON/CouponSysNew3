@@ -33,7 +33,7 @@ import com.ira.couponSpring.Security.TokenManager;
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RestController
 @RequestMapping("company")
-public class CompanyController {
+public class CompanyController extends ClientControler{
 
 	@Autowired
 	private LoginManager loginManager;
@@ -140,5 +140,8 @@ public class CompanyController {
 				HttpStatus.OK);
 
 	}
+
+	
+	
 
 }
