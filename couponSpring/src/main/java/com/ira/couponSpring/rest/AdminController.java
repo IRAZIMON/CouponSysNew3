@@ -17,22 +17,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ira.couponSpring.Beans.Company;
-import com.ira.couponSpring.Beans.Coupon;
+import com.ira.couponSpring.Beans.Credentials;
 import com.ira.couponSpring.Beans.Customer;
+import com.ira.couponSpring.Beans.LoginResult;
 import com.ira.couponSpring.Exceptions.AlreadyExistException;
 import com.ira.couponSpring.Exceptions.NotAllowedException;
 import com.ira.couponSpring.Exceptions.NotExistsException;
 import com.ira.couponSpring.Exceptions.TokenNotExistException;
 import com.ira.couponSpring.Facade.AdminFacade;
-import com.ira.couponSpring.Facade.CompanyFacade;
-import com.ira.couponSpring.Repo.CouponReposetory;
 import com.ira.couponSpring.Security.Clientype;
 import com.ira.couponSpring.Security.LoginManager;
 import com.ira.couponSpring.Security.TokenManager;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 
-//@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RestController
 @RequestMapping("admin")
 public class AdminController extends ClientControler{
@@ -47,18 +46,18 @@ public class AdminController extends ClientControler{
 	private AdminFacade adminFacade;
 
 	
-	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
-		System.out.println("start admin controller");
-
-		HttpHeaders responseHeaders = new HttpHeaders();
+	@PostMapping("login")
+	@Override
+	public ResponseEntity<?> login(@RequestBody Credentials credentials) throws Exception {
+		
+      LoginResult loginResult=new LoginResult();
 		try {
-			String token = loginManager.login(email, password, Clientype.Administrator);
-//			responseHeaders.add("Access-Control-Allow-Origin", token);
-			responseHeaders.set("Authorization", token);
-			System.out.println("end admin controller ");
-			return ResponseEntity.ok().headers(responseHeaders).body("admin login ssuccssed");
-
+			String token = loginManager.login(credentials.getEmail(), credentials.getPassword(), Clientype.Administrator);
+			loginResult.setToken(token);
+			loginResult.setType("admin");
+			
+			return new ResponseEntity<LoginResult>(loginResult,HttpStatus.OK);
+		
 		} catch (LoginException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 
@@ -217,5 +216,8 @@ public class AdminController extends ClientControler{
 		}
 
 	}
+
+	
+	
 
 }

@@ -1,11 +1,8 @@
 package com.ira.couponSpring.rest;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.security.auth.login.LoginException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,11 +14,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ira.couponSpring.Beans.CategoryOfCoupon;
 import com.ira.couponSpring.Beans.Company;
 import com.ira.couponSpring.Beans.Coupon;
+import com.ira.couponSpring.Beans.Credentials;
+import com.ira.couponSpring.Beans.LoginResult;
 import com.ira.couponSpring.Exceptions.AlreadyExistException;
 import com.ira.couponSpring.Exceptions.NotAllowedException;
 import com.ira.couponSpring.Exceptions.NotExistsException;
@@ -32,7 +30,7 @@ import com.ira.couponSpring.Security.Clientype;
 import com.ira.couponSpring.Security.LoginManager;
 import com.ira.couponSpring.Security.TokenManager;
 
-////@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RestController
 @RequestMapping("company")
 public class CompanyController {
@@ -47,15 +45,16 @@ public class CompanyController {
 	private CompanyFacade companyFacade;
 
 	@PostMapping("login")
-	public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) throws Exception {
-		System.out.println("start company controller");
-		HttpHeaders responseHeaders = new HttpHeaders();
+	public ResponseEntity<?> login(@RequestBody Credentials credentials) throws Exception {
+		
+      LoginResult loginResult=new LoginResult();
 		try {
-			String token = loginManager.login(email, password, Clientype.Company);
-			responseHeaders.set("Authorization", token);
-			System.out.println("end company controller ");
-			return ResponseEntity.ok().headers(responseHeaders).body("company login ssuccssed");
-
+			String token = loginManager.login(credentials.getEmail(), credentials.getPassword(), Clientype.Company);
+			loginResult.setToken(token);
+			loginResult.setType("company");
+			System.out.println("end customer controller " + token);
+			return new ResponseEntity<LoginResult>(loginResult,HttpStatus.OK);
+		
 		} catch (LoginException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 
@@ -135,11 +134,11 @@ public class CompanyController {
 
 	@GetMapping("get-company-details")
 	public ResponseEntity<?> getCompanyDetails(@RequestHeader(name = "Authorization", required = false) String token)
-			throws AlreadyExistException, NotAllowedException, NotExistsException, NotFoundException, TokenNotExistException {
-		return new ResponseEntity<Company>(((CompanyFacade) tokenManager.getClientFacade(token)).getCompanyDetails(),HttpStatus.OK);
-		
+			throws AlreadyExistException, NotAllowedException, NotExistsException, NotFoundException,
+			TokenNotExistException {
+		return new ResponseEntity<Company>(((CompanyFacade) tokenManager.getClientFacade(token)).getCompanyDetails(),
+				HttpStatus.OK);
+
 	}
-
-
 
 }

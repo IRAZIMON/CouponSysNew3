@@ -35,7 +35,7 @@ public class ControlerTest implements CommandLineRunner{
 		Company c2 = new Company();
 		c2.setName("BBBB");
 		c2.setEmail("BBBB@gmail.com");
-		c2.setPassword("2222");
+		c2.setPassword("Ip200683");
 		adminFacade.addCompany(c2);
 		
 		
@@ -77,7 +77,7 @@ public class ControlerTest implements CommandLineRunner{
 			cus6.setFirstName("OOO");
 			cus6.setLastName("PPP");
 			cus6.setEmail("000@walla.com");
-			cus6.setPassword("9999");
+			cus6.setPassword("Az311218");
 			
 			adminFacade.addCustumer(cus6);
 			PrintUtil.printCustomer(cus6);
