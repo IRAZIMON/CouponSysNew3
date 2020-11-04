@@ -24,7 +24,6 @@ import com.ira.couponSpring.Exceptions.NotExistsException;
 import com.ira.couponSpring.Exceptions.NotFoundException;
 import com.ira.couponSpring.Exceptions.PurchaseCouponException;
 import com.ira.couponSpring.Exceptions.TokenNotExistException;
-import com.ira.couponSpring.Facade.CompanyFacade;
 import com.ira.couponSpring.Facade.CustomerFacade;
 import com.ira.couponSpring.Security.Clientype;
 import com.ira.couponSpring.Security.LoginManager;

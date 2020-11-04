@@ -1,8 +1,6 @@
 package com.ira.couponSpring.rest;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.security.auth.login.LoginException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ira.couponSpring.Beans.Company;
-import com.ira.couponSpring.Beans.Coupon;
 import com.ira.couponSpring.Beans.Credentials;
 import com.ira.couponSpring.Beans.Customer;
 import com.ira.couponSpring.Beans.LoginResult;
@@ -27,11 +23,9 @@ import com.ira.couponSpring.Exceptions.NotAllowedException;
 import com.ira.couponSpring.Exceptions.NotExistsException;
 import com.ira.couponSpring.Exceptions.TokenNotExistException;
 import com.ira.couponSpring.Facade.AdminFacade;
-import com.ira.couponSpring.Facade.CompanyFacade;
 import com.ira.couponSpring.Security.Clientype;
 import com.ira.couponSpring.Security.LoginManager;
 import com.ira.couponSpring.Security.TokenManager;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")

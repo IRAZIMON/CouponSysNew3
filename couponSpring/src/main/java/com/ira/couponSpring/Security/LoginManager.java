@@ -28,9 +28,6 @@ public class LoginManager {
 	@Autowired
 	private TokenManager tokenManager;
 
-//	public int  getCompanyId()	{
-//		return companyFacade.getCompanyId();
-//	}
 
 	public String login(String email, String password, Clientype clientype) throws LoginException {
 

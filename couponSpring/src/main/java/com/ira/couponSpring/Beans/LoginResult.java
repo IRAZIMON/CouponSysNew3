@@ -1,6 +1,5 @@
 package com.ira.couponSpring.Beans;
 
-import com.ira.couponSpring.Security.Clientype;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

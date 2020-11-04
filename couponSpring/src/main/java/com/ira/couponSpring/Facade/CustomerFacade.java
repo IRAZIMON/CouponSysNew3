@@ -12,10 +12,9 @@ import org.springframework.stereotype.Service;
 import com.ira.couponSpring.Beans.CategoryOfCoupon;
 import com.ira.couponSpring.Beans.Coupon;
 import com.ira.couponSpring.Beans.Customer;
-import com.ira.couponSpring.Exceptions.NotExistsException;
 import com.ira.couponSpring.Exceptions.NotFoundException;
 import com.ira.couponSpring.Exceptions.PurchaseCouponException;
-import lombok.Data;
+
 
 @Scope("prototype")
 

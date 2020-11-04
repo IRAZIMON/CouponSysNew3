@@ -1,10 +1,8 @@
 package com.ira.couponSpring.clr;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
 import com.ira.couponSpring.Beans.Company;
 import com.ira.couponSpring.Beans.Customer;
 import com.ira.couponSpring.Facade.AdminFacade;
@@ -16,11 +14,12 @@ public class ControlerTest implements CommandLineRunner{
 	@Autowired
 	private AdminFacade adminFacade;
 	
-	
-	
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		
+		
 		
 		PrintUtil.printTestInfo("Add new company");
 		System.out.println();
@@ -30,14 +29,16 @@ public class ControlerTest implements CommandLineRunner{
 		c1.setEmail("Aroma@gmail.com");
 		c1.setPassword("Aa111111");
 		adminFacade.addCompany(c1);
+
 		
 		
+		 
 		Company c2 = new Company();
 		c2.setName("Arkia");
 		c2.setEmail("Arkia@gmail.com");
 		c2.setPassword("Ip200683");
 		adminFacade.addCompany(c2);
-		
+		 
 		
 		Company c3 = new Company();
 		c3.setName("DominosPizza");

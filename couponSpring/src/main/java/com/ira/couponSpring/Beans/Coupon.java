@@ -1,7 +1,8 @@
 package com.ira.couponSpring.Beans;
 
-//import java.util.Date;
+
 import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

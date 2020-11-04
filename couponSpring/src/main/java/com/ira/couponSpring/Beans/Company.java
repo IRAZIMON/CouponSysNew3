@@ -1,6 +1,7 @@
 package com.ira.couponSpring.Beans;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -97,5 +98,6 @@ public class Company {
 		return "Company [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", coupons="
 				+ coupons + "]";
 	}
+
 
 }
