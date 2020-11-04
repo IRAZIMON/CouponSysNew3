@@ -24,6 +24,7 @@ import com.ira.couponSpring.Exceptions.NotExistsException;
 import com.ira.couponSpring.Exceptions.NotFoundException;
 import com.ira.couponSpring.Exceptions.PurchaseCouponException;
 import com.ira.couponSpring.Exceptions.TokenNotExistException;
+import com.ira.couponSpring.Facade.CompanyFacade;
 import com.ira.couponSpring.Facade.CustomerFacade;
 import com.ira.couponSpring.Security.Clientype;
 import com.ira.couponSpring.Security.LoginManager;
@@ -83,7 +84,7 @@ public class CustomerController extends ClientControler{
 		try {
 			tokenManager.isTokenExist(token);
 			return new ResponseEntity<List<Coupon>>(
-					((CustomerFacade) tokenManager.getClientFacade(token)).getAllCouponsPurchaseCustomer(), HttpStatus.OK);
+					((CustomerFacade) tokenManager.getClientFacade(token)).getAllPurchaeCoupons(), HttpStatus.OK);
 		}
 		catch (TokenNotExistException e) {
 
@@ -91,6 +92,8 @@ public class CustomerController extends ClientControler{
 		}
 	}
 
+	
+	
 	@GetMapping("get-all-purchase-coupons-by-category/{category}")
 	public ResponseEntity<?> getAllCouponsPurchaseCustomerByCategory(
 			@PathVariable(name = "category") CategoryOfCoupon category,
@@ -99,7 +102,7 @@ public class CustomerController extends ClientControler{
 		try {
 			tokenManager.isTokenExist(token);
 			return new ResponseEntity<List<Coupon>>(
-					((CustomerFacade) tokenManager.getClientFacade(token)).getCustomerCoupons(category),HttpStatus.OK);
+					((CustomerFacade) tokenManager.getClientFacade(token)).getAllPurchaeCouponsByCategory(category),HttpStatus.OK);
 		}
 
 		catch (TokenNotExistException e) {

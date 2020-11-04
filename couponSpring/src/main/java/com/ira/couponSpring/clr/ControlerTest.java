@@ -26,23 +26,23 @@ public class ControlerTest implements CommandLineRunner{
 		System.out.println();
 		
 		Company c1 = new Company();
-		c1.setName("AAAA");
-		c1.setEmail("AAAA@gmail.com");
-		c1.setPassword("1111");
+		c1.setName("Aroma");
+		c1.setEmail("Aroma@gmail.com");
+		c1.setPassword("Aa111111");
 		adminFacade.addCompany(c1);
 		
 		
 		Company c2 = new Company();
-		c2.setName("BBBB");
-		c2.setEmail("BBBB@gmail.com");
+		c2.setName("Arkia");
+		c2.setEmail("Arkia@gmail.com");
 		c2.setPassword("Ip200683");
 		adminFacade.addCompany(c2);
 		
 		
 		Company c3 = new Company();
-		c3.setName("WWW");
-		c3.setEmail("WWW@gmail.com");
-		c3.setPassword("6666");
+		c3.setName("DominosPizza");
+		c3.setEmail("Pizza@gmail.com");
+		c3.setPassword("Aa222222");
 		adminFacade.addCompany(c3);
 		PrintUtil.printCompanies(adminFacade.getAllCompanies());
 		
@@ -53,10 +53,10 @@ public class ControlerTest implements CommandLineRunner{
 		
 		 PrintUtil.printTestInfo("Add  new customer");
 			Customer cust5 = new Customer();
-			cust5.setFirstName("CCCC");
-			cust5.setLastName("DDDD");
-			cust5.setEmail("CCCC@walla.com");
-			cust5.setPassword("3333");
+			cust5.setFirstName("Avi");
+			cust5.setLastName("Cohen");
+			cust5.setEmail("Avi@walla.com");
+			cust5.setPassword("Aa333333");
 
 			adminFacade.addCustumer(cust5);
 			PrintUtil.printCustomer(cust5);
@@ -64,9 +64,9 @@ public class ControlerTest implements CommandLineRunner{
 			
 			
 			Customer cus4 = new Customer();
-			cus4.setFirstName("EEE");
-			cus4.setLastName("FFF");
-			cus4.setEmail("EEE@walla.com");
+			cus4.setFirstName("Dana");
+			cus4.setLastName("Ron");
+			cus4.setEmail("Dana@walla.com");
 			cus4.setPassword("Ip200683");
 			
 			adminFacade.addCustumer(cus4);
@@ -74,10 +74,10 @@ public class ControlerTest implements CommandLineRunner{
 			System.out.println();
 			
 			Customer cus6 = new Customer();
-			cus6.setFirstName("OOO");
-			cus6.setLastName("PPP");
-			cus6.setEmail("000@walla.com");
-			cus6.setPassword("Az311218");
+			cus6.setFirstName("Or");
+			cus6.setLastName("Levi");
+			cus6.setEmail("Or@walla.com");
+			cus6.setPassword("Iz200683");
 			
 			adminFacade.addCustumer(cus6);
 			PrintUtil.printCustomer(cus6);

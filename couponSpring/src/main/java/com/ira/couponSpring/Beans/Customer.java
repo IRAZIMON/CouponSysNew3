@@ -8,11 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Entity
-public class Customer {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Customer{
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id

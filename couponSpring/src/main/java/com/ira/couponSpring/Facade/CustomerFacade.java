@@ -72,7 +72,7 @@ public class CustomerFacade extends ClientFacade {
 
 	}
 
-	public List<Coupon> getAllCouponsPurchaseCustomer() throws NotFoundException {
+	public List<Coupon> getAllPurchaeCoupons() throws NotFoundException {
 
 		Customer customer = customerReposetory.findById(customer_ID);
 		if (customer != null) {
@@ -85,8 +85,8 @@ public class CustomerFacade extends ClientFacade {
 
 	}
 
-	public List<Coupon> getCustomerCoupons(CategoryOfCoupon category) throws NotFoundException {
-		List<Coupon> coupons = getAllCouponsPurchaseCustomer();
+	public List<Coupon> getAllPurchaeCouponsByCategory(CategoryOfCoupon category) throws NotFoundException {
+		List<Coupon> coupons = getAllPurchaeCoupons();
 		List<Coupon> couponNewList = new ArrayList<Coupon>();
 		for (Coupon coupon : coupons) {
 			if (coupon.getCategory().equals(category)) {
@@ -103,7 +103,7 @@ public class CustomerFacade extends ClientFacade {
 
 	public List<Coupon> getCustomerCouponsMax(double maxPrice) throws NotFoundException {
 
-		List<Coupon> coupons = getAllCouponsPurchaseCustomer();
+		List<Coupon> coupons = getAllPurchaeCoupons();
 		List<Coupon> couponNewList = new ArrayList<Coupon>();
 		for (Coupon coupon : coupons) {
 			if (coupon.getPrice() <= maxPrice) {

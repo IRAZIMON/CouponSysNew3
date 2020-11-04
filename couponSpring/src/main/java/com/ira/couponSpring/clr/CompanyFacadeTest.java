@@ -70,7 +70,7 @@ public class CompanyFacadeTest implements CommandLineRunner {
         PrintUtil.printTestInfo("Add new coupon");
 		Coupon co6 = new Coupon();
     	co6.setCompanyId(3);
-		co6.setCategory(CategoryOfCoupon.FOOD);
+		co6.setCategory(CategoryOfCoupon.Food);
 		co6.setTitle("30%");
 		co6.setDescription("buy one take one");
 		co6.setStartDate(DateUtil.convertDate("2019-05-01"));
@@ -89,7 +89,7 @@ public class CompanyFacadeTest implements CommandLineRunner {
 		
 		Coupon co7 = new Coupon();
 		co7.setCompanyId(3);
-		co7.setCategory(CategoryOfCoupon.ELECTRICITY);
+		co7.setCategory(CategoryOfCoupon.Electricity);
 		co7.setTitle("lottery");
 		co7.setDescription("pepsi lottery");
 		co7.setStartDate(DateUtil.convertDate("2019-04-01"));
@@ -116,7 +116,7 @@ public class CompanyFacadeTest implements CommandLineRunner {
 		PrintUtil.printTestInfo("Add coupon with title already exists");
 	    Coupon co8 = new Coupon();
 		co8.setCompanyId(3);
-		co8.setCategory(CategoryOfCoupon.FOOD);
+		co8.setCategory(CategoryOfCoupon.Food);
 		co8.setTitle("30%");
 		co8.setDescription("buy one take one");
 		co8.setStartDate(DateUtil.convertDate("2019-05-01"));
@@ -171,7 +171,7 @@ public class CompanyFacadeTest implements CommandLineRunner {
 		PrintUtil.printTestInfo("There are coupons with this category");
 	    companyFacade = (CompanyFacade) loginManager.login("shekem@gmail.com", "3021YY", Clientype.Company);
 		try {
-			PrintUtil.printCoupons(companyFacade.getCompanyCouponsByCategory(CategoryOfCoupon.FOOD));
+			PrintUtil.printCoupons(companyFacade.getCompanyCouponsByCategory(CategoryOfCoupon.Food));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -180,7 +180,7 @@ public class CompanyFacadeTest implements CommandLineRunner {
 		PrintUtil.printTestInfo("No coupons with this category");
 		companyFacade = (CompanyFacade) loginManager.login("shekem@gmail.com", "3021YY", Clientype.Company);
 		try {
-			PrintUtil.printCoupons(companyFacade.getCompanyCouponsByCategory(CategoryOfCoupon.VACATION));
+			PrintUtil.printCoupons(companyFacade.getCompanyCouponsByCategory(CategoryOfCoupon.Vacation));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

@@ -1,6 +1,7 @@
 package com.ira.couponSpring.rest;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.security.auth.login.LoginException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.ira.couponSpring.Beans.Company;
+import com.ira.couponSpring.Beans.Coupon;
 import com.ira.couponSpring.Beans.Credentials;
 import com.ira.couponSpring.Beans.Customer;
 import com.ira.couponSpring.Beans.LoginResult;
@@ -25,6 +27,7 @@ import com.ira.couponSpring.Exceptions.NotAllowedException;
 import com.ira.couponSpring.Exceptions.NotExistsException;
 import com.ira.couponSpring.Exceptions.TokenNotExistException;
 import com.ira.couponSpring.Facade.AdminFacade;
+import com.ira.couponSpring.Facade.CompanyFacade;
 import com.ira.couponSpring.Security.Clientype;
 import com.ira.couponSpring.Security.LoginManager;
 import com.ira.couponSpring.Security.TokenManager;
@@ -47,7 +50,6 @@ public class AdminController extends ClientControler{
 
 	
 	@PostMapping("login")
-	@Override
 	public ResponseEntity<?> login(@RequestBody Credentials credentials) throws Exception {
 		
       LoginResult loginResult=new LoginResult();
@@ -118,12 +120,12 @@ public class AdminController extends ClientControler{
 			ArrayList<Company> companies = (ArrayList<Company>) adminFacade.getAllCompanies();
 			return new ResponseEntity<ArrayList<Company>>(companies, HttpStatus.OK);
 		}
-
 		catch (TokenNotExistException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 
 		}
 	}
+	
 
 	@GetMapping("getOneCompany/{companyId}")
 	public ResponseEntity<?> getOneCompany(@PathVariable(name = "companyId") int company_id,
