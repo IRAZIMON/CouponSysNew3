@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class LoginResult {
 	private String token;
 	private String type;
